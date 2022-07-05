@@ -1,7 +1,12 @@
 import React from 'react'
+import {PhoneProducts } from '../Types/Types';
 import ProductItem from './ProductItem';
 
-export default function ProductList() {
+type productListProps={
+   addProductProps: (product: PhoneProducts) => void; 
+}
+
+export default function ProductList({addProductProps}:productListProps) {
     const arrayProduct = [
         {
           id: 1,
@@ -40,16 +45,25 @@ export default function ProductList() {
           img: "./img/applephone.jpg",
         },
       ];
+      const renderArray=(arrayProduct: PhoneProducts[])=>{
+        return arrayProduct.map((product,index)=>{
+        return(
+            <div key={index} className="col-4">
+              <ProductItem productProp ={product} addProductProps={addProductProps}/>
+            </div>
+          )
+        })
+      }
+    
   return (
     <div>
       <div className="container">
         <div className="row">
-        <div className="col-4">
-          <ProductItem
-          />
+        {renderArray(arrayProduct)}
+          
         </div>
         </div>
       </div>
-    </div>
+  
   )
 }

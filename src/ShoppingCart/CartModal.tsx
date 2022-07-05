@@ -1,6 +1,11 @@
 import React from 'react'
+import {cartModalPropsType  } from '../Types/Types'
 
-export default function CartModal() {
+
+export default function CartModal({cartModalProps, removeProduct, increaseDecreaseItem}:cartModalPropsType) {
+// console.log(cartModalProps)
+
+
   return (
     <div>
       <div>
@@ -37,7 +42,26 @@ export default function CartModal() {
                       <th scope="col">Total</th>
                     </tr>
                   </thead>
-                  <tbody>table body</tbody>
+                  <tbody>
+                    
+                    {cartModalProps.map((product,index)=>{
+                    return(
+                      <tr key={index}>
+                      <td>{product.id}</td>
+                      <td>{product.name}</td>
+                      <td><img src={product.img} alt={product.name} style={{width: "80px", height: "80px"}}/></td>
+                      <td>
+                      {product.quantity}
+                      <button onClick={()=>increaseDecreaseItem(product.id, 1)} className="btn btn-success
+                      ">+</button>
+                      <button onClick={()=>increaseDecreaseItem(product.id, -1)} className="btn btn-danger
+                      ">-</button></td>
+                      <td>{product.price}</td>
+                      <td><button onClick={()=>removeProduct(product.id)}>delete</button></td>
+                      </tr>
+                        )
+                  })}
+                  </tbody>
                 </table>
               </div>
               <div className="modal-footer">
